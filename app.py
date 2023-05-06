@@ -63,12 +63,12 @@ def form():
 
 
 def predict_img(img):
-    img = img_to_array(img)/255
-    img = img.reshape((1, 224, 224, 3))
-    result = model.predict(img)
-    result = np.argmax(result, axis=-1)
-    target_names = ['Benign', 'Early', 'Pre','Pro']
-    return target_names[result[0]]
+    input_img = image.img_to_array(img)
+    input_img = np.expand_dims(input_img, axis=0)
+    predict_img = model.predict(input_img)
+    y_pred = np.argmax(predict_img, axis=1)
+    target_names = ['Benign', 'Early', 'Pre', 'Pro']
+    return target_names[y_pred[0]]
 
 html_temp = """
     <div style="background-color:#f63366;padding:10px;margin-bottom: 25px">
